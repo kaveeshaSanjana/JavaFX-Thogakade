@@ -2,13 +2,16 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.order.OrderFormController">
+<AnchorPane prefHeight="454.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.order.OrderFormController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
       <Label layoutX="14.0" layoutY="85.0" text="Date :">
@@ -40,9 +43,19 @@
       <TextField fx:id="txtStock" layoutX="401.0" layoutY="181.0" prefHeight="26.0" prefWidth="58.0" promptText="Stock" />
       <JFXComboBox fx:id="comboItemId" layoutX="50.0" layoutY="181.0" onAction="#cmbItemOnAction" prefHeight="26.0" prefWidth="150.0" promptText="Item" />
       <JFXComboBox fx:id="comboCustomer" layoutX="50.0" layoutY="138.0" onAction="#cmbCustomeraOnAction" prefHeight="26.0" prefWidth="150.0" promptText="Customer" />
-      <JFXButton layoutX="450.0" layoutY="230.0" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: orange;" text="Add to Cart" />
+      <JFXButton layoutX="464.0" layoutY="222.0" onAction="#btnAddToCartOnAction" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: orange;" text="Add to Cart" />
       <TextField fx:id="txtAddress" layoutX="225.0" layoutY="139.0" promptText="Address" />
       <TextField fx:id="txtSalary" layoutX="401.0" layoutY="138.0" promptText="Salery" />
       <TextField fx:id="txtUnitPrice" layoutX="468.0" layoutY="181.0" prefHeight="26.0" prefWidth="82.0" promptText="Unit Price" />
+      <JFXTextField fx:id="txtItemCount" layoutX="314.0" layoutY="219.0" />
+      <TableView fx:id="tblCart" layoutX="5.0" layoutY="257.0" prefHeight="126.0" prefWidth="580.0">
+        <columns>
+          <TableColumn fx:id="colOrderId" prefWidth="99.20001220703125" text="OrderID" />
+          <TableColumn fx:id="colDescId" prefWidth="100.0" text="Desc" />
+            <TableColumn fx:id="colUnitPrice" prefWidth="103.20001220703125" text="Unit Price" />
+            <TableColumn fx:id="colQty" prefWidth="129.5999755859375" text="Qty" />
+            <TableColumn fx:id="colTotal" prefWidth="148.0001220703125" text="Total" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

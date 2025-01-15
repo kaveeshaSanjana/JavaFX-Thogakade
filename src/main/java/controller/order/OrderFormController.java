@@ -1,16 +1,25 @@
 package controller.order;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import controller.customer.CustomerController;
 import controller.item.ItemController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
+import model.CartTM;
 import model.Customer;
 import model.Item;
 
@@ -31,9 +40,22 @@ public class OrderFormController implements Initializable {
     public TextField txtAddress;
     public TextField txtSalary;
     public TextField txtUnitPrice;
+    public JFXTextField txtItemCount;
+    public TableView tblCart;
+
+    public TableColumn colOrderId;
+    public TableColumn colUnitPrice;
+    public TableColumn colQty;
+    public TableColumn colTotal;
+    public TableColumn colDescId;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        colOrderId.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
+        colDescId.setCellValueFactory(new PropertyValueFactory<>("desc"));
+        colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colQty.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
 
         loadDateAndTime();
         loadCustomerList();
@@ -90,5 +112,17 @@ public class OrderFormController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    ObservableList<CartTM> cartArray = FXCollections.observableArrayList();
+    public void btnAddToCartOnAction(ActionEvent actionEvent) {
+        if(Integer.parseInt(txtStock.getText())>Integer.parseInt(txtItemCount.getText())){
+            cartArray.add(new CartTM(comboItemId.getValue().toString(),
+                    txtDescription.getText(),
+                    Integer.parseInt(txtItemCount.getText()),
+                    Double.parseDouble(txtUnitPrice.getText()),
+                    Integer.parseInt(txtItemCount.getText()) * Double.parseDouble(txtUnitPrice.getText())));
+        }
+        tblCart.setItems(cartArray);
     }
 }
